@@ -1,183 +1,209 @@
 ///
-/// Future Imperfect by HTML5 UP
+/// Fractal by HTML5 UP
 /// html5up.net | @ajlkn
 /// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 ///
 
 /* Header */
 
-	body {
-		padding-top: 3.5em;
-	}
-
 	#header {
+		@include color(accent1);
+		@include padding(4.5em, 0);
+		@include vendor('align-items', 'center');
 		@include vendor('display', 'flex');
-		@include vendor('justify-content', 'space-between');
-		background-color: _palette(bg);
-		border-bottom: solid 1px _palette(border);
-		height: 3.5em;
-		left: 0;
-		line-height: 3.5em;
-		position: fixed;
-		top: 0;
-		width: 100%;
-		z-index: _misc(z-index-base);
-
-		a {
-			color: inherit;
-			text-decoration: none;
-		}
-
-		ul {
-			list-style: none;
-			margin: 0;
-			padding-left: 0;
-
-			li {
-				display: inline-block;
-				padding-left: 0;
-			}
-		}
+		@include vendor('justify-content', 'center');
+		background-image: url('images/overlay.png'), url('images/pattern-size1.svg');
+		background-position: top left, center center;
+		background-attachment: fixed, fixed;
+		background-size: auto, cover;
+		height: 100vh;
+		min-height: 35em;
 
 		h1 {
-			height: inherit;
-			line-height: inherit;
-			padding: 0 0 0 1.5em;
-			white-space: nowrap;
+			font-size: 3.25em;
+			font-weight: _font(weight-bold);
+			margin-bottom: _size(element-margin) * 0.25;
+		}
 
-			a {
-				font-size: 0.7em;
+		p {
+			font-size: 1.5em;
+			line-height: 1.35em;
+
+			br {
+				display: inline;
 			}
 		}
 
-		.links {
-			@include vendor('flex', '1');
-			border-left: solid 1px _palette(border);
-			height: inherit;
-			line-height: inherit;
-			margin-left: 1.5em;
-			overflow: hidden;
-			padding-left: 1.5em;
+		.content {
+			@include vendor('transition', ('opacity 0.5s ease', 'transform 1s ease'));
+			@include vendor('transform', 'translateX(0)');
+			opacity: 1;
+			text-align: right;
+			margin: (_size(element-margin) * -1.75) (_size(element-margin) * 2) 0 0;
 
-			ul {
-				li {
-					border-left: solid 1px _palette(border);
-					line-height: 1;
-					margin-left: 1em;
-					padding-left: 1em;
+			> :last-child {
+				margin-bottom: 0;
+			}
 
-					&:first-child {
-						border-left: 0;
-						margin-left: 0;
-						padding-left: 0;
-					}
+			.actions {
+				@include vendor('justify-content', 'flex-end');
+			}
+		}
 
-					a {
-						border-bottom: 0;
-						font-family: _font(family-heading);
-						font-size: 0.7em;
-						font-weight: _font(weight-heading);
-						letter-spacing: _font(kerning-heading);
-						text-transform: uppercase;
+		.image {
+			@include vendor('transition', ('opacity 1s ease', 'transform 1s ease'));
+			@include vendor('transform', 'translateY(0)');
+			opacity: 1;
+
+			img {
+				@include vendor('transition', 'opacity 0.75s ease');
+				@include vendor('transition-delay', '0.75s');
+				opacity: 1;
+			}
+		}
+
+		// Large.
+			@include breakpoint('<=large') {
+				background-image: url('images/overlay.png'), url('images/pattern-size2.svg');
+			}
+
+		// Medium.
+			@include breakpoint('<=medium') {
+				height: auto;
+				min-height: 0;
+
+				.content {
+					margin: (_size(element-margin) * -1) (_size(element-margin) * 2) 0 0;
+
+					.actions {
+						@include vendor('justify-content', 'center');
 					}
 				}
-			}
-		}
 
-		.main {
-			height: inherit;
-			line-height: inherit;
-			text-align: right;
+				// Portrait.
+					@include orientation(portrait) {
+						@include padding(6em, 3em);
+						@include vendor('flex-direction', 'column-reverse');
 
-			ul {
-				height: inherit;
-				line-height: inherit;
-
-				li {
-					border-left: solid 1px _palette(border);
-					height: inherit;
-					line-height: inherit;
-					white-space: nowrap;
-
-					> * {
-						display: block;
-						float: left;
-					}
-
-					> a {
-						@include icon(false, solid);
-						border-bottom: 0;
-						color: _palette(fg-light);
-						overflow: hidden;
-						position: relative;
-						text-indent: 4em;
-						width: 4em;
-
-						&:before {
+						.content {
 							display: block;
-							height: inherit;
-							left: 0;
-							line-height: inherit;
-							position: absolute;
+							width: 100%;
 							text-align: center;
-							text-indent: 0;
-							top: 0;
-							width: inherit;
+							margin: 0 0 _size(element-margin) 0;
+						}
+
+						.image {
+							overflow: hidden;
 						}
 					}
+
+			}
+
+		// Small.
+			@include breakpoint('<=small') {
+				background-image: url('images/overlay.png'), url('images/pattern-size3.svg');
+
+				h1 {
+					font-size: 2em;
 				}
-			}
-		}
 
-		form {
-			margin: 0;
-
-			input {
-				display: inline-block;
-				height: 2.5em;
-				position: relative;
-				top: -2px;
-				vertical-align: middle;
-			}
-		}
-
-		#search {
-			@include vendor('transition', 'all 0.5s ease');
-			max-width: 0;
-			opacity: 0;
-			overflow: hidden;
-			padding: 0;
-			white-space: nowrap;
-
-			input {
-				width: 12em;
-			}
-
-			&.visible {
-				max-width: 12.5em;
-				opacity: 1;
-				padding: 0 0.5em 0 0;
-			}
-		}
-
-		@include breakpoint('<=medium') {
-			.links {
-				display: none;
-			}
-		}
-
-		@include breakpoint('<=small') {
-			height: 2.75em;
-			line-height: 2.75em;
-
-			h1 {
-				padding: 0 0 0 1em;
-			}
-
-			.main {
-				.search {
-					display: none;
+				p {
+					font-size: 1em;
+					line-height: inherit;
 				}
+
+				// Landscape.
+					@include orientation(landscape) {
+						@include padding(2em, 2em);
+
+						.content {
+							margin: 0 _size(element-margin) _size(element-margin) 0;
+						}
+
+						.image {
+							font-size: 0.8em;
+							width: 15em;
+							max-width: 20vw;
+
+							.inner, &:before, &:after {
+								font-size: 0.8em;
+							}
+						}
+					}
+
+				// Portrait.
+					@include orientation(portrait) {
+						@include padding(3em, 1.5em);
+
+						.image {
+							font-size: 0.6em;
+							max-width: 60vw;
+						}
+					}
+
 			}
-		}
+
+		// XSmall.
+			@include breakpoint('<=xsmall') {
+
+				// Landscape.
+					@include orientation(landscape) {
+						@include padding(2em, 1.5em);
+
+						.image {
+							font-size: 0.7em;
+						}
+
+						.actions {
+							font-size: 0.8em;
+						}
+					}
+
+				// Portrait.
+					@include orientation(portrait) {
+						@include padding(2em, 1em);
+					}
+
+			}
+
+		// Mobile.
+			body.is-mobile & {
+				background-attachment: scroll, scroll;
+			}
+
+		// Preload.
+			body.is-preload & {
+				.content {
+					@include vendor('transform', 'translateX(2em)');
+					opacity: 0;
+				}
+
+				.image {
+					@include vendor('transform', 'translateY(4em)');
+					opacity: 0;
+
+					img {
+						opacity: 0;
+					}
+				}
+
+				// Medium.
+					@include breakpoint('<=medium') {
+
+						// Portrait.
+							@include orientation(portrait) {
+								.content {
+									@include vendor('transform', 'none');
+									opacity: 1;
+								}
+
+								.image {
+									@include vendor('transform', 'translateY(2em)');
+								}
+							}
+
+					}
+
+			}
+
 	}
